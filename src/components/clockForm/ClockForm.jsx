@@ -1,8 +1,7 @@
 import { formatInTimeZone } from "date-fns-tz";
 import { useState } from "react";
 import { isDuplicateTitle, isValidTimezone } from "../../utils/validation";
-
-
+import TimezoneSelector from "./../common/TimezoneSelector";
 
 const ClockForm = ({ clocks, setClocks }) => {
   const [title, setTitle] = useState("");
@@ -18,8 +17,8 @@ const ClockForm = ({ clocks, setClocks }) => {
     }
 
     // Validate that the title is not duplicated
-    if(isDuplicateTitle(title, clocks)){
-      alert('A Clock with this title already exists');
+    if (isDuplicateTitle(title, clocks)) {
+      alert("A Clock with this title already exists");
       return;
     }
 
@@ -39,6 +38,7 @@ const ClockForm = ({ clocks, setClocks }) => {
       setClocks([...clocks, newClock]);
       setTitle("");
       setTimezone("");
+      setTimezone("UTC"); // Reset to default "UTC"
     } catch (error) {
       console.error("Error formatting time:", error);
     }
@@ -62,12 +62,9 @@ const ClockForm = ({ clocks, setClocks }) => {
           placeholder="Clock Title"
           required
         />
-        <input
-          onChange={handleTimezone}
-          type="text"
-          value={timezone}
-          placeholder="TimeZone (e.g., UTC"
-          required
+        <TimezoneSelector
+          selectedTimezone={timezone}
+          setSelectedTimezone={setTimezone}
         />
 
         <button type="submit">Add Clock</button>
