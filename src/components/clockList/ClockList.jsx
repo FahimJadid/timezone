@@ -1,4 +1,4 @@
-import ClockItem from "./components/ClockItem";
+import ClockItem from "./clockItem/ClockItem";
 
 const ClockList = ({ clocks, setClocks }) => {
   return (
