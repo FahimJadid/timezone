@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EventForm from "./EvenForm";
 
-const EventList = ({ clock, events, setEvents }) => {
+const EventList = ({ clock, events, setEvents, clocks }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [eventToEdit, setEventToEdit] = useState(null);
 
@@ -46,6 +46,8 @@ const EventList = ({ clock, events, setEvents }) => {
             addEvent={addEvent}
             eventToEdit={eventToEdit}
             saveEvent={saveEvent}
+            events={events}
+            clocks={clocks}
           />
         ) : (
           <button onClick={() => setIsAdding(true)}>Add Event</button>

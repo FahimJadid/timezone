@@ -76,7 +76,7 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
       )}
 
       {/* Event List */}
-      <EventList clock={clock} events={events} setEvents={setEvents} />
+      <EventList clock={clock} events={events} setEvents={setEvents} clocks={clocks}/>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { validateEvent } from "../../../../utils/validation";
 
 
-const EventForm = ({ addEvent, clock, eventToEdit, saveEvent, events }) => {
+const EventForm = ({ addEvent, clock, eventToEdit, saveEvent, events, clocks }) => {
   const [eventTitle, setEventTitle] = useState(
     eventToEdit ? eventToEdit.title : ""
   );
@@ -16,7 +16,7 @@ const EventForm = ({ addEvent, clock, eventToEdit, saveEvent, events }) => {
     e.preventDefault();
 
     const newEvent = {title: eventTitle, time: eventTime};
-    const validation = validateEvent(events, newEvent)
+    const validation = validateEvent(events, newEvent, clocks)
 
     if (validation.isValid) {
       if (eventToEdit) {

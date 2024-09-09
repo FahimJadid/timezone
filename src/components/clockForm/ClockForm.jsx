@@ -1,6 +1,6 @@
 import { formatInTimeZone } from "date-fns-tz";
 import { useState } from "react";
-import { isDuplicateTitle, isValidTimezone } from "../../utils/validation";
+import { isDuplicateTitle } from "../../utils/validation";
 import TimezoneSelector from "./../common/TimezoneSelector";
 
 const ClockForm = ({ clocks, setClocks }) => {
