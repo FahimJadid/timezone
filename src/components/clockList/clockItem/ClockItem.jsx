@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { formatInTimeZone } from "date-fns-tz";
 import TimezoneSelector from "../../common/TimezoneSelector";
+import EventList from "./components/EventList";
 
 const ClockItem = ({ clock, setClocks, clocks }) => {
   const [currentTime, setCurrentTime] = useState(clock.time);
@@ -72,6 +73,9 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
           <button onClick={handleDelete}>Delete</button>
         </div>
       )}
+
+      {/* Event List */}
+      
     </div>
   );
 };
