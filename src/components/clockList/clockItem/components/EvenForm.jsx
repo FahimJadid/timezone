@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { validateEvent } from "../../../../utils/validation";
 
-const EventForm = ({ addEvent, clock, eventToEdit, saveEvent }) => {
+
+const EventForm = ({ addEvent, clock, eventToEdit, saveEvent, events }) => {
   const [eventTitle, setEventTitle] = useState(
     eventToEdit ? eventToEdit.title : ""
   );
@@ -8,25 +10,32 @@ const EventForm = ({ addEvent, clock, eventToEdit, saveEvent }) => {
     eventToEdit ? eventToEdit.time : ""
   );
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (eventTitle && eventTime) {
+    const newEvent = {title: eventTitle, time: eventTime};
+    const validation = validateEvent(events, newEvent)
+
+    if (validation.isValid) {
       if (eventToEdit) {
-        saveEvent(clock, { title: eventTitle, time: eventTime });
+        saveEvent(clock, newEvent);
       } else {
-        addEvent(clock, { title: eventTitle, time: eventTime });
+        addEvent(clock, newEvent);
       }
       setEventTitle("");
       setEventTime("");
+      setErrorMessage("");
     } else {
-      alert("Both event title and time are required");
+      setErrorMessage(validation.message)
     }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
+        {errorMessage && <p className="error">{errorMessage}</p>}
         <input
           type="text"
           placeholder="Event Title"
