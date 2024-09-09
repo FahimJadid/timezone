@@ -8,6 +8,7 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(clock.title);
   const [newTimezone, setNewTimezone] = useState(clock.timezone);
+  const [events, setEvents] = useState(clock.events || []);
 
   // Update the clock's time every second to keep it dynamic
 
@@ -38,7 +39,7 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
 
     const updatedClocks = clocks.map((item) => {
       if (item.title === clock.title) {
-        return { ...item, title: newTitle, timezone: newTimezone };
+        return { ...item, title: newTitle, timezone: newTimezone, events };
       }
       return item;
     });
@@ -75,7 +76,7 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
       )}
 
       {/* Event List */}
-      
+      <EventList clock={clock} events={events} setEvents={setEvents} />
     </div>
   );
 };
