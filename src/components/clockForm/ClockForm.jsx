@@ -10,12 +10,6 @@ const ClockForm = ({ clocks, setClocks }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validating that the timezone is valid (for now, simple check for empty)
-    if (!isValidTimezone(timezone)) {
-      alert("Please provide a valid timezone");
-      return;
-    }
-
     // Validate that the title is not duplicated
     if (isDuplicateTitle(title, clocks)) {
       alert("A Clock with this title already exists");
@@ -37,7 +31,6 @@ const ClockForm = ({ clocks, setClocks }) => {
 
       setClocks([...clocks, newClock]);
       setTitle("");
-      setTimezone("");
       setTimezone("UTC"); // Reset to default "UTC"
     } catch (error) {
       console.error("Error formatting time:", error);
