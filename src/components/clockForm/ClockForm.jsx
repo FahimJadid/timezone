@@ -1,5 +1,8 @@
 import { formatInTimeZone } from "date-fns-tz";
 import { useState } from "react";
+import { isDuplicateTitle, isValidTimezone } from "../../utils/validation";
+
+
 
 const ClockForm = ({ clocks, setClocks }) => {
   const [title, setTitle] = useState("");
@@ -9,8 +12,14 @@ const ClockForm = ({ clocks, setClocks }) => {
     e.preventDefault();
 
     // Validating that the timezone is valid (for now, simple check for empty)
-    if (!timezone) {
+    if (!isValidTimezone(timezone)) {
       alert("Please provide a valid timezone");
+      return;
+    }
+
+    // Validate that the title is not duplicated
+    if(isDuplicateTitle(title, clocks)){
+      alert('A Clock with this title already exists');
       return;
     }
 
