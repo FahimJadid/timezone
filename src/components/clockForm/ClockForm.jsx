@@ -48,10 +48,6 @@ const ClockForm = ({ clocks, setClocks }) => {
     setTitle(e.target.value);
   };
 
-  const handleTimezone = (e) => {
-    setTimezone(e.target.value);
-  };
-
   return (
     <>
       <form onSubmit={handleSubmit} className="clock-form">

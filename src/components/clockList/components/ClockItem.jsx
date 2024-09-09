@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { formatInTimeZone } from "date-fns-tz";
+import TimezoneSelector from "../../common/TimezoneSelector";
 
 const ClockItem = ({ clock, setClocks, clocks }) => {
   const [currentTime, setCurrentTime] = useState(clock.time);
@@ -23,25 +24,25 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
 
   // Function to handle deleting the clock
   const handleDelete = () => {
-    const updatedClocks = clocks.filter((item) => item.title !== clock.title)
-    setClocks(updatedClocks)
+    const updatedClocks = clocks.filter((item) => item.title !== clock.title);
+    setClocks(updatedClocks);
   };
 
   // Function to handle editing the clock
   const handleSave = () => {
     if (!Array.isArray(clocks)) {
-      console.error('Clocks is not an array:', clocks);
+      console.error("Clocks is not an array:", clocks);
       return;
     }
 
     const updatedClocks = clocks.map((item) => {
-      if(item.title === clock.title){
-        return {...item, title: newTitle, timezone: newTimezone}
+      if (item.title === clock.title) {
+        return { ...item, title: newTitle, timezone: newTimezone };
       }
       return item;
-    })
+    });
 
-    setClocks(updatedClocks)
+    setClocks(updatedClocks);
     setIsEditing(false);
   };
 
@@ -49,15 +50,14 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
     <div className="clock-item">
       {isEditing ? (
         <div>
-          <input 
-            type="text" 
+          <input
+            type="text"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
           />
-          <input 
-            type="text" 
-            value={newTimezone}
-            onChange={(e) => setNewTimezone(e.target.value)}
+          <TimezoneSelector
+            selectedTimezone={newTimezone}
+            setSelectedTimezone={setNewTimezone}
           />
           <button onClick={handleSave}>Save</button>
         </div>
