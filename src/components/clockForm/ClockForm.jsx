@@ -10,18 +10,16 @@ const ClockForm = ({ clocks, setClocks }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate that the title is not duplicated
     if (isDuplicateTitle(title, clocks)) {
       alert("A Clock with this title already exists");
       return;
     }
 
-    // Get the current time based on the selected timezone
+    
     const now = new Date();
-    console.log("Now:", now);
     try {
-      const formattedTime = formatInTimeZone(now, timezone, "HH:mm:ss"); // Format the time in the selected timezone
-      // console.log("formattedTime: ", formattedTime);
+      const formattedTime = formatInTimeZone(now, timezone, "HH:mm:ss"); 
+      
 
       const newClock = {
         title,

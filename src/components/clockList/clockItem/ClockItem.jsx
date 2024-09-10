@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { formatInTimeZone } from "date-fns-tz";
 import TimezoneSelector from "../../common/TimezoneSelector";
+import { parse } from "date-fns";
 import EventList from "./components/EventList";
 
 const ClockItem = ({ clock, setClocks, clocks }) => {
@@ -48,17 +49,19 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
     setIsEditing(false);
   };
 
-  const localTime = new Date();
-  const timeInZone = formatInTimeZone(localTime, clock.timezone);
 
 
 // Utility function to format the time difference
 const formatTimeDifference = (localTime, timeInZone) => {
   const difference = Math.abs(localTime - timeInZone) / (1000 * 60) // minutes
   const hours = Math.floor(difference / 60);
-  const minutes = difference % 60;
+  const minutes = Math.round(difference % 60);
   return `${hours} hours, ${minutes} minutes`;
 }
+
+// Convert currentTime string back to Date object for accurate calculation
+const localTime = new Date();
+const timeInZone = parse(currentTime, "HH:mm:ss", new Date());
 
   return (
     <div className="clock-item">
@@ -78,7 +81,7 @@ const formatTimeDifference = (localTime, timeInZone) => {
       ) : (
         <div>
           <h3>{clock.title}</h3>
-          <p>Time: {format(timeInZone, 'HH:mm:ss')} ({clock.timezone})</p>
+          <p>Time: {currentTime} ({clock.timezone})</p>
           <p>Time difference: {formatTimeDifference(localTime, timeInZone)}</p>
 
           <button onClick={() => setIsEditing(true)}>Edit</button>
