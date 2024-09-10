@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EventForm from "./EvenForm";
+import EventForm from "./EventForm";
 
 const EventList = ({ clock, events, setEvents, clocks }) => {
   const [isAdding, setIsAdding] = useState(false);
