@@ -48,6 +48,18 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
     setIsEditing(false);
   };
 
+  const localTime = new Date();
+  const timeInZone = formatInTimeZone(localTime, clock.timezone);
+
+
+// Utility function to format the time difference
+const formatTimeDifference = (localTime, timeInZone) => {
+  const difference = Math.abs(localTime - timeInZone) / (1000 * 60) // minutes
+  const hours = Math.floor(difference / 60);
+  const minutes = difference % 60;
+  return `${hours} hours, ${minutes} minutes`;
+}
+
   return (
     <div className="clock-item">
       {isEditing ? (
@@ -65,10 +77,9 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
         </div>
       ) : (
         <div>
-          <h3>
-            {clock.title} <span>({clock.timezone})</span>
-          </h3>
-          <p>Current Time: {currentTime}</p>
+          <h3>{clock.title}</h3>
+          <p>Time: {format(timeInZone, 'HH:mm:ss')} ({clock.timezone})</p>
+          <p>Time difference: {formatTimeDifference(localTime, timeInZone)}</p>
 
           <button onClick={() => setIsEditing(true)}>Edit</button>
           <button onClick={handleDelete}>Delete</button>
@@ -76,7 +87,12 @@ const ClockItem = ({ clock, setClocks, clocks }) => {
       )}
 
       {/* Event List */}
-      <EventList clock={clock} events={events} setEvents={setEvents} clocks={clocks}/>
+      <EventList
+        clock={clock}
+        events={events}
+        setEvents={setEvents}
+        clocks={clocks}
+      />
     </div>
   );
 };
